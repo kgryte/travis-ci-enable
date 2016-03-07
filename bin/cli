@@ -18,6 +18,7 @@ var enable = require( './../lib' );
 // VARIABLES //
 
 var token;
+var repos;
 var slug;
 var args;
 
@@ -100,7 +101,7 @@ if ( args.version ) {
 opts = {};
 
 if ( args._.length ) {
-	opts.repos = args._;
+	repos = args._;
 } else {
 	// Attempt to infer from `git config`...
 	try {
@@ -109,7 +110,7 @@ if ( args._.length ) {
 		slug = slug.match( re );
 		if ( slug ) {
 			slug = slug[ 1 ] + '/' + slug[ 2 ];
-			opts.repos = [ slug ];
+			repos = [ slug ];
 		}
 	} catch ( err ) {
 		throw new Error( 'invalid invocation. Must either provide repository slugs or run the command in a .git repository.' );
@@ -137,7 +138,7 @@ if ( args.sync ) {
 
 // ENABLE //
 
-enable( opts, clbk );
+enable( repos, opts, clbk );
 
 /**
 * FUNCTION: clbk( error, results )

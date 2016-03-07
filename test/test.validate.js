@@ -54,8 +54,7 @@ tape( 'if provided a `token` option which is not a primitive string, the functio
 
 	for ( i = 0; i < values.length; i++ ) {
 		err = validate( {}, {
-			'token': values[i],
-			'repos': ['beep/boop']
+			'token': values[i]
 		});
 		t.ok( err instanceof TypeError, 'returns type error when provided ' + values[i] );
 	}
@@ -63,46 +62,8 @@ tape( 'if provided a `token` option which is not a primitive string, the functio
 });
 
 tape( 'a `token` option is required', function test( t ) {
-	var err = validate( {}, {
-		'repos': ['beep/boop']
-	});
+	var err = validate( {}, {} );
 	t.ok( err instanceof TypeError, 'returns type error if not provided a `token`' );
-	t.end();
-});
-
-tape( 'if provided a `repos` option which is not a string array, the function returns a type error', function test( t ) {
-	var values;
-	var err;
-	var i;
-
-	values = [
-		'5',
-		5,
-		NaN,
-		null,
-		undefined,
-		true,
-		[],
-		['5',null],
-		{},
-		function(){}
-	];
-
-	for ( i = 0; i < values.length; i++ ) {
-		err = validate( {}, {
-			'token': 'abcdefg',
-			'repos': values[i]
-		});
-		t.ok( err instanceof TypeError, 'returns type error when provided ' + values[i] );
-	}
-	t.end();
-});
-
-tape( 'a `repos` option is required', function test( t ) {
-	var err = validate( {}, {
-		'token': 'abcdefg'
-	});
-	t.ok( err instanceof TypeError, 'returns type error if not provided a `repos` option' );
 	t.end();
 });
 
@@ -125,7 +86,6 @@ tape( 'if provided a `hostname` option which is not a primitive string, the func
 	for ( i = 0; i < values.length; i++ ) {
 		err = validate( {}, {
 			'token': 'abcdefg',
-			'repos': ['beep/boop'],
 			'hostname': values[i]
 		});
 		t.ok( err instanceof TypeError, 'returns type error when provided ' + values[i] );
@@ -152,7 +112,6 @@ tape( 'if provided a `useragent` option which is not a primitive string, the fun
 	for ( i = 0; i < values.length; i++ ) {
 		err = validate( {}, {
 			'token': 'abcdefg',
-			'repos': ['beep/boop'],
 			'useragent': values[i]
 		});
 		t.ok( err instanceof TypeError, 'returns type error when provided ' + values[i] );
@@ -179,7 +138,6 @@ tape( 'if provided a `sync` option which is not a primitive boolean, the functio
 	for ( i = 0; i < values.length; i++ ) {
 		err = validate( {}, {
 			'token': 'abcdefg',
-			'repos': ['beep/boop'],
 			'sync': values[i]
 		});
 		t.ok( err instanceof TypeError, 'returns type error when provided ' + values[i] );
@@ -195,7 +153,6 @@ tape( 'the function returns `null` if all options are valid', function test( t )
 	opts = {};
 	options = {
 		'token': 'abcdefg',
-		'repos': ['beep/boop'],
 		'hostname': 'api.travis-ci.com',
 		'useragent': 'beeper-booper',
 		'sync': false
@@ -214,7 +171,6 @@ tape( 'the function will ignore unrecognized options', function test( t ) {
 
 	err = validate( {}, {
 		'token': 'abcdefg',
-		'repos': ['beep/boop'],
 		'beep': 'boop',
 		'a': 5,
 		'b': null,
