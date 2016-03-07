@@ -6,7 +6,8 @@
 	],
 	"boolean": [
 		"help",
-		"version"
+		"version",
+		"sync"
 	],
 	"alias": {
 		"help": [

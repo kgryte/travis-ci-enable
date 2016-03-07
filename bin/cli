@@ -130,6 +130,9 @@ else if ( process.env.TRAVISCI_TOKEN ) {
 if ( token ) {
 	opts.token = token;
 }
+if ( args.sync ) {
+	opts.sync = args.sync;
+}
 
 
 // ENABLE //

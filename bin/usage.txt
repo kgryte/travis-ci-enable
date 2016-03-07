@@ -7,4 +7,5 @@ Options:
   -V,  --version            Print the package version.
        --hostname host      Hostname. Default: api.travis-ci.org.
        --token token        Travis CI access token.
+       --sync               Sync Travis CI with Github.
 
