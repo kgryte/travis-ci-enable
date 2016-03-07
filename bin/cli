@@ -1,0 +1,166 @@
+#!/usr/bin/env node
+'use strict';
+
+// MODULES //
+
+var fs = require( 'fs' );
+var path = require( 'path' );
+var parseArgs = require( 'minimist' );
+var notifier = require( 'update-notifier' );
+var exec = require( 'child_process' ).execSync;
+var cwd = require( 'utils-cwd' );
+var eol = require( 'regex-eol' );
+var pkg = require( './../package.json' );
+var opts = require( './opts.json' );
+var enable = require( './../lib' );
+
+
+// VARIABLES //
+
+var token;
+var slug;
+var args;
+
+/**
+* REGEX: /(?:github\.com)\/(?:([^\s\/]+)\/([^\s\/]+)[\/\.])/
+*	Captures an `owner` and a `repo` from a Github URL.
+*
+*	(?:)
+*		-	capture but do not remember (hostname)
+*	github\.com
+*		-	hostname
+*	\/
+*		-	match a / literal
+*	(?:)
+*		-	capture but do not remember (path)
+*	()
+*		-	capture (owner)
+*	[^\s\/]+
+*		-	match anything but a space or / literal 1 or more times
+*	\/
+*		-	match a / literal
+*	()
+*		-	capture (repo)
+*	[^\s\/]+
+*		-	match anything but a space or / literal 1 or more times
+*	[\/\.]
+*		-	match either a / or . literal
+*/
+var re = /(?:github\.com)\/(?:([^\s\/]+)\/([^\s\/]+)[\/\.])/;
+
+
+// FUNCTIONS //
+
+/**
+* FUNCTION: onClose()
+*	Callback invoked upon writing a file to `stdout`.
+*
+* @private
+*/
+function onClose() {
+	process.exit( 0 );
+}
+
+
+// INIT //
+
+process.stdout.on( 'error', process.exit );
+
+
+// PACKAGE UPDATES //
+
+notifier( { 'pkg': pkg } ).notify();
+
+
+// ARGUMENTS //
+
+args = parseArgs( process.argv.slice( 2 ), opts );
+
+
+// HELP //
+
+if ( args.help ) {
+	fs.createReadStream( path.join( __dirname, 'usage.txt' ) )
+		.pipe( process.stdout )
+		.on( 'close', onClose );
+    return;
+}
+
+
+// VERSION //
+
+if ( args.version ) {
+	console.log( pkg.version );
+	return;
+}
+
+
+// OPTIONS //
+
+opts = {};
+
+if ( args._.length ) {
+	opts.repos = args._;
+} else {
+	// Attempt to infer from `git config`...
+	try {
+		slug = exec( 'git config remote.origin.url', {'cwd': cwd()} );
+		slug = slug.toString().replace( eol, '' );
+		slug = slug.match( re );
+		if ( slug ) {
+			slug = slug[ 1 ] + '/' + slug[ 2 ];
+			opts.repos = [ slug ];
+		}
+	} catch ( err ) {
+		throw new Error( 'invalid invocation. Must either provide repository slugs or run the command in a .git repository.' );
+	}
+}
+// if ( args.useragent ) {
+// 	opts.useragent = args.useragent;
+// }
+if ( args.hostname ) {
+	opts.hostname = args.hostname;
+}
+if ( args.token ) {
+	token = args.token;
+}
+else if ( process.env.TRAVISCI_TOKEN ) {
+	token = process.env.TRAVISCI_TOKEN;
+}
+if ( token ) {
+	opts.token = token;
+}
+
+
+// ENABLE //
+
+enable( opts, clbk );
+
+/**
+* FUNCTION: clbk( error, results )
+*	Callback invoked upon receiving a request response.
+*
+* @private
+* @param {Error|Null} error - error object
+* @param {Object} results - results
+* @returns {Void}
+*/
+function clbk( error, results ) {
+	var len;
+	if ( error ) {
+		process.stderr.write( error.message, 'utf8' );
+		process.stderr.write( '\n', 'utf8' );
+		return process.exit( 1 );
+	}
+	len = Object.keys( results.data ).length;
+	if ( len ) {
+		process.stdout.write( JSON.stringify( results.data ), 'utf8' );
+		process.stdout.write( '\n', 'utf8' );
+	}
+	len = Object.keys( results.failures ).length;
+	if ( len ) {
+		process.stderr.write( JSON.stringify( results.failures ), 'utf8' );
+		process.stderr.write( '\n', 'utf8' );
+	}
+	process.exit( 0 );
+} // end FUNCTION clbk()

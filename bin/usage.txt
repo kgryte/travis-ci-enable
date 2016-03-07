@@ -1,0 +1,10 @@
+
+Usage: travisenable [options] slug1 slug2 ...
+
+Options:
+
+  -h,  --help               Print this message.
+  -V,  --version            Print the package version.
+       --hostname host      Hostname. Default: api.travis-ci.org.
+       --token token        Travis CI access token.
+
