@@ -2,10 +2,8 @@
 
 function getOpts() {
 	var opts = {
-		'repos': [
-			'math-io/erf'
-		],
-		'token': 'abcdef123!'
+		'token': 'abcdef123!',
+		'hostname': 'api.travis-ci.com'
 	};
 	return opts;
 }
