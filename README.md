@@ -141,7 +141,7 @@ The factory method accepts the same `options` as [`enable()`](#enable).
 
 *   If the module encounters an application-level `error` while __initially__ querying an endpoint (e.g., no network connection, malformed request, etc), that `error` is returned immediately to the provided `callback`.
 *   If the module encounters a downstream `error` (e.g., timeout, reset connection, etc), that `error` is included in the returned results under the `failures` field.
-*   If possible, avoid repeatedly triggering a [sync][travis-sync] in close succession, as each [sync][travis-sync] may entail multiple Github API requests, thus affecting a user's [rate limit][github-user-rate-limit]. Hence, if an application requires multiple `enable` invocations, separately trigger a [sync][travis-sync] once, rather than setting the `sync` option to `true`.
+*   If possible, avoid repeatedly triggering a [sync][travis-sync] in close succession, as each [sync][travis-sync] may entail multiple Github API requests, thus affecting a user's Github [rate limit][github-user-rate-limit]. Hence, if an application requires multiple `enable` invocations, separately trigger a [sync][travis-sync] once, rather than setting the `sync` option to `true`.
     
     ``` javascript
     var sync = require( 'travis-ci-sync' );
