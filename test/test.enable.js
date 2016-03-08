@@ -34,7 +34,7 @@ tape( 'file exports a function', function test( t ) {
 	t.end();
 });
 
-tape( 'function throws if provided a repos argument which is not a string array', function test( t ) {
+tape( 'function throws if provided a first argument which is not a string array', function test( t ) {
 	var values;
 	var opts;
 	var i;
@@ -83,7 +83,9 @@ tape( 'function throws if not provided a token', function test( t ) {
 	t.end();
 
 	function foo() {
-		enable( repos, {'hostname':'api.travis-ci.org'}, noop );
+		var opts = getOpts();
+		delete opts.token;
+		enable( repos, opts, noop );
 	}
 });
 
