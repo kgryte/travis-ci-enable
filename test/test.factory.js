@@ -10,6 +10,7 @@ var factory = require( './../lib/factory.js' );
 
 // FIXTURES //
 
+var repos = require( './fixtures/repos.json' );
 var getOpts = require( './fixtures/opts.js' );
 var data = require( './fixtures/data.json' );
 var results = {
@@ -135,7 +136,7 @@ tape( 'function returns a function which returns an error to a provided callback
 
 	opts = getOpts();
 	fcn = factory( opts, done );
-	fcn();
+	fcn( repos );
 
 	function get( opts, clbk ) {
 		setTimeout( onTimeout, 0 );
@@ -168,7 +169,7 @@ tape( 'function returns a function which returns a resource hash containing resu
 
 	opts = getOpts();
 	fcn = factory( opts, done );
-	fcn();
+	fcn( repos );
 
 	function get( opts, clbk ) {
 		setTimeout( onTimeout, 0 );
