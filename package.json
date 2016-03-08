@@ -51,6 +51,8 @@
   "dependencies": {
     "minimist": "^1.2.0",
     "regex-eol": "^1.0.0",
+    "travis-ci-repo-info": "^1.1.0",
+    "travis-ci-sync": "^1.0.1",
     "update-notifier": "^0.6.1",
     "utils-copy": "^1.1.1",
     "utils-cwd": "^2.0.0",

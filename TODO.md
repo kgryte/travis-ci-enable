@@ -5,6 +5,4 @@ TODO
 2. for each `repo`, get `id`
 3. for each `id`, enable
 4. compile results
-5.  
-
-1. add note to `travis-ci-sync`
+5. 

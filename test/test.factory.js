@@ -131,14 +131,14 @@ tape( 'function returns a function which returns an error to a provided callback
 	var fcn;
 
 	factory = proxyquire( './../lib/factory.js', {
-		'./get.js': get
+		'./pipeline.js': pipeline
 	});
 
 	opts = getOpts();
 	fcn = factory( opts, done );
 	fcn( repos );
 
-	function get( opts, clbk ) {
+	function pipeline( repos, opts, clbk ) {
 		setTimeout( onTimeout, 0 );
 		function onTimeout() {
 			clbk({
@@ -162,7 +162,7 @@ tape( 'function returns a function which returns a resource hash containing resu
 	var fcn;
 
 	factory = proxyquire( './../lib/factory.js', {
-		'./get.js': get
+		'./pipeline.js': pipeline
 	});
 
 	expected = results;
@@ -171,7 +171,7 @@ tape( 'function returns a function which returns a resource hash containing resu
 	fcn = factory( opts, done );
 	fcn( repos );
 
-	function get( opts, clbk ) {
+	function pipeline( repos, opts, clbk ) {
 		setTimeout( onTimeout, 0 );
 		function onTimeout() {
 			clbk( null, results );
