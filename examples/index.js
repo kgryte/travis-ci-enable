@@ -2,16 +2,17 @@
 
 var enable = require( './../lib' );
 
+var repos = [
+	'math-io/erf',
+	'math-io/erfc',
+	'math-io/erfinv'
+];
+
 var opts = {
-	'repos': [
-		'math-io/erf',
-		'math-io/erfc',
-		'math-io/erfinv'
-	],
 	'token': 'tkjorjk34ek3nj4!'
 };
 
-enable( opts, clbk );
+enable( repos, opts, clbk );
 
 function clbk( error, results ) {
 	if ( error ) {
