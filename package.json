@@ -49,8 +49,11 @@
     "url": "https://github.com/kgryte/travis-ci-enable/issues"
   },
   "dependencies": {
+    "debug": "^2.2.0",
     "minimist": "^1.2.0",
+    "object-keys": "^1.0.9",
     "regex-eol": "^1.0.0",
+    "travis-ci-put": "^2.0.1",
     "travis-ci-repo-info": "^1.1.0",
     "travis-ci-sync": "^1.0.1",
     "update-notifier": "^0.6.1",
