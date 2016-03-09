@@ -279,3 +279,42 @@ tape( 'function returns request results', function test( t ) {
 		t.end();
 	}
 });
+
+tape( 'function returns request results (resolved info, but unable to enable)', function test( t ) {
+	var pipeline;
+	var expected;
+	var opts;
+
+	expected = {
+		'meta': {
+			'total': 2,
+			'success': 0,
+			'failure': 2
+		},
+		'data': {},
+		'failures': {
+			'math-io/erf': 'Forbidden',
+			'math-io/erfc': 'Forbidden'
+		}
+	};
+
+	pipeline = proxyquire( './../lib/pipeline.js', {
+		'travis-ci-sync': sync(),
+		'travis-ci-repo-info': repoinfo( null, info ),
+		'./put.js': request( null, expected )
+	});
+
+	opts = getOpts();
+	opts.sync = false;
+
+	pipeline( copy(repos), opts, done );
+
+	function done( error, results ) {
+		if ( error ) {
+			t.ok( false, error.message );
+			return t.end();
+		}
+		t.deepEqual( results, expected, 'deep equal' );
+		t.end();
+	}
+});
