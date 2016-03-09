@@ -27,7 +27,7 @@ tape( 'function returns an object of `id:slug` pairs', function test( t ) {
 		'7830739': 'kgryte/travis-ci-repo-info'
 	};
 
-	actual = ids( info );
+	actual = ids( info.data );
 
 	t.deepEqual( actual, expected, 'deep equal' );
 	t.end();

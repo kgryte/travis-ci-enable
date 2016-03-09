@@ -1,30 +1,38 @@
 {
-  "kgryte/travis-ci-enable": {
-    "id": 7353652,
-    "slug": "kgryte/travis-ci-enable",
-    "active": true,
-    "description": "Enable Travis CI builds for a Github repository.",
-    "last_build_id": 114499342,
-    "last_build_number": "4",
-    "last_build_state": "passed",
-    "last_build_duration": 897,
-    "last_build_language": null,
-    "last_build_started_at": "2016-03-08T12:13:33Z",
-    "last_build_finished_at": "2016-03-08T12:17:13Z",
-    "github_language": null
+  "meta": {
+    "total": 2,
+    "success": 2,
+    "failures": 0
   },
-  "kgryte/travis-ci-repo-info": {
-    "id": 7830739,
-    "slug": "kgryte/travis-ci-repo-info",
-    "active": true,
-    "description": "Get repository info for one or more repositories.",
-    "last_build_id": 114489421,
-    "last_build_number": "18",
-    "last_build_state": "passed",
-    "last_build_duration": 812,
-    "last_build_language": null,
-    "last_build_started_at": "2016-03-08T11:16:55Z",
-    "last_build_finished_at": "2016-03-08T11:22:08Z",
-    "github_language": "JavaScript"
-  }
+  "data": {
+    "kgryte/travis-ci-enable": {
+      "id": 7353652,
+      "slug": "kgryte/travis-ci-enable",
+      "active": true,
+      "description": "Enable Travis CI builds for a Github repository.",
+      "last_build_id": 114499342,
+      "last_build_number": "4",
+      "last_build_state": "passed",
+      "last_build_duration": 897,
+      "last_build_language": null,
+      "last_build_started_at": "2016-03-08T12:13:33Z",
+      "last_build_finished_at": "2016-03-08T12:17:13Z",
+      "github_language": null
+    },
+    "kgryte/travis-ci-repo-info": {
+      "id": 7830739,
+      "slug": "kgryte/travis-ci-repo-info",
+      "active": true,
+      "description": "Get repository info for one or more repositories.",
+      "last_build_id": 114489421,
+      "last_build_number": "18",
+      "last_build_state": "passed",
+      "last_build_duration": 812,
+      "last_build_language": null,
+      "last_build_started_at": "2016-03-08T11:16:55Z",
+      "last_build_finished_at": "2016-03-08T11:22:08Z",
+      "github_language": "JavaScript"
+    }
+  },
+  "failures": {}
 }
