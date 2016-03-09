@@ -65,6 +65,7 @@ function onClose() {
 
 // INIT //
 
+process.title = pkg.name;
 process.stdout.on( 'error', process.exit );
 
 

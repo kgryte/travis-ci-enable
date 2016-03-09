@@ -10,7 +10,8 @@ var pipeline = require( './../lib/pipeline.js' );
 
 // FIXTURES //
 
-var repos = require( './fixtures/ids.json' );
+var repos = require( './fixtures/repos.json' );
+var ids = require( './fixtures/ids.json' );
 var getOpts = require( './fixtures/opts.js' );
 var data = require( './fixtures/data.json' );
 var info = require( './fixtures/info.json' );
@@ -150,7 +151,7 @@ tape( 'function returns an error to a provided callback if an error is encounter
 
 	pipeline( copy(repos), opts, done );
 
-	function mock( repos, opts, clbk ) {
+	function mock( ids, opts, clbk ) {
 		setTimeout( onTimeout, 0 );
 		function onTimeout() {
 			clbk({
@@ -192,10 +193,10 @@ tape( 'function handles the scenario where no repository information is availabl
 		'./put.js': request( null, {} )
 	});
 
-	repos = {
-		'1': 'unknown/repo',
-		'2': 'no/permissions'
-	};
+	repos = [
+		'unknown/repo',
+		'no/permissions'
+	];
 
 	opts = getOpts();
 	opts.sync = false;
@@ -262,8 +263,8 @@ tape( 'function returns request results', function test( t ) {
 	});
 
 	r = copy( repos );
-	r[ '3' ] = 'unknown/repo';
-	r[ '4' ] = 'no/permissions';
+	r.push( 'unknown/repo' );
+	r.push( 'no/permissions' );
 
 	opts = getOpts();
 	opts.sync = false;
